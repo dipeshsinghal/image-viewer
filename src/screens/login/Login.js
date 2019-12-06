@@ -48,7 +48,9 @@ class Login extends Component {
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
 
         if( this.state.username !== "" && this.state.password !== "" ) {
-            if(this.state.username !== "admin" && this.state.password !== "upgrad" ) {
+            if(this.state.username === "admin" && this.state.password === "upgrad" ) {
+                this.props.history.push('/home');
+            } else {
                 this.setState({ loginError: "dispBlock" });
             }
         }
