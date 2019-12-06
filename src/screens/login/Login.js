@@ -29,6 +29,7 @@ class Login extends Component {
             username: "",
             passwordRequired: "dispNone",
             password: "",
+            loginError: "dispNone",
         }
     }
     inputUsernameChangeHandler = (e) => {
@@ -42,8 +43,16 @@ class Login extends Component {
         })
     }
     loginClickHandler = () => {
+        this.setState({ loginError: "dispNone" })
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+
+        if( this.state.username !== "" && this.state.password !== "" ) {
+            if(this.state.username !== "admin" && this.state.password !== "upgrad" ) {
+                this.setState({ loginError: "dispBlock" });
+            }
+        }
+        
     }
     render() {
         return (
@@ -71,6 +80,10 @@ class Login extends Component {
                                 </FormHelperText>
                             </FormControl>
                             <br /><br />
+                            <FormHelperText className={this.state.loginError}>
+                                    <span className="red">Incorrect username and/or password</span>
+                            </FormHelperText>
+                            <br />
                             <Button className="login-card-button" variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
                         </CardContent>
                     </Card>
