@@ -16,3 +16,23 @@
     width: max-content;
     vertical-align: middle;
 }
+
+#search-field {
+    display: inline-flex;
+    width: max-content;
+    background-color: #c0c0c0;
+    border-radius: 4px;
+    position: relative;
+    vertical-align: middle;
+    float: right;
+    margin: 7px;
+}
+.searchIcon{
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+.searchInput {
+    display: inline-block;
+    width: 300px;
+}
