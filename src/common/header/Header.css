@@ -36,3 +36,8 @@
     display: inline-block;
     width: 300px;
 }
+.header-right {
+    display: inline-flex;
+    position: relative;
+    float: right;
+}
