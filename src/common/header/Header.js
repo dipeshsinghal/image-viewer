@@ -17,17 +17,20 @@ class Header extends Component {
     }
     menuOpenHandler = (event) => {
         this.setState({ anchorEl: event.currentTarget });
-        console.log("3"+this.state.anchorEl);
     }
     menuCloseHandler = () => {
-        console.log("1"+this.state.anchorEl);
         this.setState({ anchorEl : null });
-        console.log("2"+this.state.anchorEl);
+    }
+    logoutHandler = () => {
+        sessionStorage.removeItem("access-token");
+        this.menuCloseHandler();
+        this.props.history.push('/');
     }
     render() {
         return (
             <div className="header">
                 <div className="title">Image Viewer</div>
+                { this.props.showSearchBarAndProfileIcon === true ?
                 <div className="header-right">
                     <div id="search-field">
                         <div className="searchIcon" >
@@ -45,10 +48,11 @@ class Header extends Component {
                             onClose={this.menuCloseHandler}
                         >
                             <MenuItem onClick={this.menuCloseHandler}>My account</MenuItem>
-                            <MenuItem onClick={this.menuCloseHandler}>Logout</MenuItem>
+                            <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                         </Menu>
                     </IconButton>
-                </div>
+                </div> : ""
+                }
             </div>
 
         )

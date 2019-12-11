@@ -19,6 +19,7 @@ class Login extends Component {
             passwordRequired: "dispNone",
             password: "",
             loginError: "dispNone",
+            loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
         }
     }
     inputUsernameChangeHandler = (e) => {
@@ -38,6 +39,7 @@ class Login extends Component {
 
         if( this.state.username !== "" && this.state.password !== "" ) {
             if(this.state.username === "admin" && this.state.password === "upgrad" ) {
+                sessionStorage.setItem("access-token", '8661035776.d0fcd39.39f63ab2f88d4f9c92b0862729ee2784');
                 this.props.history.push('/home');
             } else {
                 this.setState({ loginError: "dispBlock" });
@@ -48,7 +50,7 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <Header />
+                <Header {...this.props} showSearchBarAndProfileIcon={false} />
                 <div className="login-page-content">
                     <Card className="login-card">
                         <CardContent className="login-card-content">
