@@ -24,29 +24,39 @@ class Home extends Component {
     if (this.state.loggedIn === false) {
       this.props.history.push('/');
     }
-    let thisObj = this;
-    let xhr = new XMLHttpRequest();
+    fetch(
+      this.props.baseUrl +
+      "?access_token=" +
+      sessionStorage.getItem("access-token")
+    )
+      .then(res => res.json())
+      .then(
+          result => {
+            this.setState({userProfileData: result.data});
+          },
+          error => {
+            console.log("Error while fetching user profile data from Instagram.",error);
+          }
+      );
 
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        thisObj.setState({ userProfileData: JSON.parse(this.responseText) });
-      }
-    });
-
-    xhr.open("GET", this.props.baseUrl + '?access_token=' + sessionStorage.getItem('access-token'));
-    xhr.setRequestHeader("Content-Type", "text/plain");
-    xhr.send();
-
-    let xhrMedia = new XMLHttpRequest();
-    xhrMedia.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        thisObj.setState({ userMediaData: JSON.parse(this.responseText) });
-      }
-    });
-
-    xhr.open("GET", this.props.baseUrl + 'media/recent/?access_token=' + sessionStorage.getItem('access-token'));
-    xhr.setRequestHeader("Content-Type", "text/plain");
-    xhr.send();
+  fetch(
+      this.props.baseUrl +
+      "media/recent/?access_token=" +
+      sessionStorage.getItem("access-token")
+  )
+      .then(res => res.json())
+      .then(
+          result => {
+            this.setState({
+              userMediaData: result.data,
+              filterData: result.data
+            });
+          },
+          error => {
+            console.log("Error while fetching user media data from Instagram.",error);
+          }
+      );  
+    
   }
   render() {
     return (

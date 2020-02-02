@@ -6,14 +6,33 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Avatar from "@material-ui/core/Avatar";
 
 class Header extends Component {
     constructor() {
         super();
         this.state = {
             anchorEl: null,
+            userProfileData: null,
         }
 
+    }
+    componentWillMount() {
+        if (this.state.loggedIn === false) {
+            this.props.history.push('/');
+        }
+
+        fetch(this.props.baseUrl + '?access_token=' + sessionStorage.getItem('access-token'))
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({userProfileData: result.data});
+
+                },
+                (error) => {
+                    console.log("Error while fetching user profile data from Instagram.",error);
+                }
+            )
     }
     menuOpenHandler = (event) => {
         this.setState({ anchorEl: event.currentTarget });
@@ -39,7 +58,9 @@ class Header extends Component {
                         <Input className="searchInput" disableUnderline={true} placeholder="Search..." />
                     </div>
                     <IconButton id="profile-icon" edge="start" color="inherit" aria-label="menu"  >
-                        <AccountCircleIcon onClick={this.menuOpenHandler} />
+                        {this.state.userProfileData ?
+                            <Avatar alt={this.state.userProfileData.full_name} id="profile-icon" fontSize="small"
+                                    ariant="circle" src={this.state.userProfileData.profile_picture} onClick={this.menuOpenHandler} /> : null}
                         <Menu
                             id="simple-menu"
                             anchorEl={this.state.anchorEl}
