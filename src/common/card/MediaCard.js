@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Grid from '@material-ui/core/Grid';
 import Moment from 'react-moment';
+import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,6 +48,8 @@ export default function MediaCard(props) {
                                className={classes.media}
                                image={x.images.standard_resolution.url}
                             />
+                            <br/>
+                            <Divider variant="middle"/>
                             <CardContent>
                                 <Typography component="p">
                                     {x.caption.text.split("#")[0]}
@@ -57,7 +62,12 @@ export default function MediaCard(props) {
                             <span>{x.likes.count} likes</span>
                             </CardActions>
                             <CardContent>
-
+                                <TextField label="Add a comment" />
+                                <Button
+                                    variant="contained"
+                                    id="add-comments-button"
+                                    color="primary"
+                                    onClick={null}>Add</Button>
                             </CardContent>
                         </Card>
                 </Grid>))}
