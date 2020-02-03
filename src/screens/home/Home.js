@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../common/header/Header';
 import MediaCard from '../../common/card/MediaCard';
+import { Container } from '@material-ui/core';
 
 class Home extends Component {
   constructor() {
@@ -39,8 +40,7 @@ class Home extends Component {
       .then(
           result => {
             this.setState({
-              userMediaData: result.data,
-              filterData: result.data
+              userMediaData: result.data
             });
           },
           error => {
@@ -53,9 +53,9 @@ class Home extends Component {
     return (
       <div>
         <Header {...this.props} showSearchBarAndProfileIcon={true} />
-        <MediaCard {...this.props} />
-        <div className="post-card">
-        </div>
+        <Container>
+          <MediaCard userMediaData={this.state.userMediaData}/>
+        </Container>
       </div>
     )
   }
