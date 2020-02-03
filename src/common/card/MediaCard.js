@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React , {Component} from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import './MediaCard.css';
 import Card from '@material-ui/core/Card';
@@ -10,6 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Grid from '@material-ui/core/Grid';
 import Moment from 'react-moment';
@@ -17,7 +18,7 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(theme => ({
+const style = theme => ({
     root: {
       maxWidth: 345,
     },
@@ -28,38 +29,50 @@ const useStyles = makeStyles(theme => ({
     avatar: {
       backgroundColor: red[500],
     },
-  }));
+  });
 
-export default function MediaCard(props) {  
-    const classes = useStyles();
+class MediaCard extends Component {
+    
+    constructor() {
+        super();
+        this.state = {
+            anchorEl: null,
+        }
 
-    console.log(props.userMediaData)
+    }
+    render() {
+    const { classes } = this.props;
     return (
             <Grid container spacing={2} direction="row" justify="flex-start" alignItems="center" >
-                { props.userMediaData && props.userMediaData.map((x, index) => 
-                    (<Grid item xs={6} key={x.id}>
+                { this.props.userMediaData && this.props.userMediaData.map((mediaObj, index) => 
+                    (<Grid item xs={6} key={mediaObj.id}>
                         <Card>
                             <CardHeader
-                                avatar={ <Avatar alt={x.user.username} src={x.user.profile_picture} /> }
-                                title={x.user.username}
-                                subheader={<Moment format="DD/MM/YYYY HH:mm:ss" interval={x.caption.created_time} />}
+                                avatar={ <Avatar alt={mediaObj.user.username} src={mediaObj.user.profile_picture} /> }
+                                title={mediaObj.user.username}
+                                subheader={<Moment format="DD/MM/YYYY HH:mm:ss" interval={mediaObj.caption.created_time} />}
                             />
                             <CardMedia
                                className={classes.media}
-                               image={x.images.standard_resolution.url}
+                               image={mediaObj.images.standard_resolution.url}
                             />
                             <br/>
                             <Divider variant="middle"/>
                             <CardContent>
                                 <Typography component="p">
-                                    {x.caption.text.split("#")[0]}
+                                    {mediaObj.caption.text.split("#")[0]}
                                 </Typography>
                             </CardContent>
                             <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
+                            <IconButton aria-label="add to favorites"
+                                    onTouchTap={() => { 
+                                        this.setState({
+                                            liked: !this.state.liked
+                                    })
+                                }}>
+                                {this.state.liked ? <FavoriteBorderIcon /> : <FavoriteIcon /> }
                             </IconButton>
-                            <span>{x.likes.count} likes</span>
+                            <span>{mediaObj.likes.count} likes</span>
                             </CardActions>
                             <CardContent>
                                 <TextField label="Add a comment" />
@@ -72,5 +85,8 @@ export default function MediaCard(props) {
                         </Card>
                 </Grid>))}
           </Grid>
-    )
+        )
+    }
 }
+
+export default withStyles(style)(MediaCard);

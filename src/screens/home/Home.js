@@ -54,7 +54,7 @@ class Home extends Component {
       <div>
         <Header {...this.props} showSearchBarAndProfileIcon={true} />
         <Container>
-          <MediaCard userMediaData={this.state.userMediaData}/>
+          <MediaCard {...this.props} userMediaData={this.state.userMediaData}/>
         </Container>
       </div>
     )
