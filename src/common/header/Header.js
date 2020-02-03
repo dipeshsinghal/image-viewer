@@ -3,7 +3,6 @@ import './Header.css';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from "@material-ui/core/Avatar";
