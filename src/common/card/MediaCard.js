@@ -37,9 +37,19 @@ class MediaCard extends Component {
         super();
         this.state = {
             anchorEl: null,
+            liked: [],
         }
 
     }
+    onlikeMedia = (index) => {
+        console.log(index);
+        let l = this.state.liked; 
+        l[index] = !l[index];
+        this.setState({
+            liked: l,
+        })   
+    }
+
     render() {
     const { classes } = this.props;
     return (
@@ -64,15 +74,10 @@ class MediaCard extends Component {
                                 </Typography>
                             </CardContent>
                             <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites"
-                                    onTouchTap={() => { 
-                                        this.setState({
-                                            liked: !this.state.liked
-                                    })
-                                }}>
-                                {this.state.liked ? <FavoriteBorderIcon /> : <FavoriteIcon /> }
+                            <IconButton aria-label="add to favorites" onClick={() => this.onlikeMedia(index)}>
+                                { this.state.liked[index] ? <FavoriteIcon style={{ color: red[500]}} /> : <FavoriteBorderIcon /> }
                             </IconButton>
-                            <span>{mediaObj.likes.count} likes</span>
+                            <span>{ this.state.liked[index] ?  mediaObj.likes.count + 1 : mediaObj.likes.count } likes</span>
                             </CardActions>
                             <CardContent>
                                 <TextField label="Add a comment" />
