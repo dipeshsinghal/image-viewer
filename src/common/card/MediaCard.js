@@ -80,12 +80,19 @@ class MediaCard extends Component {
                             <span>{ this.state.liked[index] ?  mediaObj.likes.count + 1 : mediaObj.likes.count } likes</span>
                             </CardActions>
                             <CardContent>
-                                <TextField label="Add a comment" />
-                                <Button
-                                    variant="contained"
-                                    id="add-comments-button"
-                                    color="primary"
-                                    onClick={null}>Add</Button>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={10}>
+                                        <TextField className="add-comment-text-field" label="Add a comment" fullWidth={true} />
+                                    </Grid>
+                                    <Grid item xs={2} index="add-button-grid">
+                                        <Button className="add-button"
+                                            variant="contained"
+                                            id="add-comments-button"
+                                            color="primary"
+                                            onClick={null}>Add</Button>
+                                    </Grid>
+                                </Grid>
+                                
                             </CardContent>
                         </Card>
                 </Grid>))}

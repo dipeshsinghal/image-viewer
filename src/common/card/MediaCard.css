@@ -1,0 +1,11 @@
+.add-button-grid {
+    vertical-align: bottom;
+}
+
+.add-button {
+    vertical-align: bottom;
+}
+
+.MuiGrid-spacing-xs-3 > .MuiGrid-item {
+    align-self: flex-end;
+}
