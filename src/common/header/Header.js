@@ -39,6 +39,11 @@ class Header extends Component {
     menuCloseHandler = () => {
         this.setState({ anchorEl : null });
     }
+    menuMyAccountHandler = () => {
+        this.menuCloseHandler();
+        this.props.history.push('/profile');
+    }
+
     logoutHandler = () => {
         sessionStorage.removeItem("access-token");
         this.menuCloseHandler();
@@ -67,7 +72,7 @@ class Header extends Component {
                             open={Boolean(this.state.anchorEl)}
                             onClose={this.menuCloseHandler}
                         >
-                            <MenuItem onClick={this.menuCloseHandler}>My account</MenuItem>
+                            <MenuItem onClick={this.menuMyAccountHandler}>My account</MenuItem>
                             <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                         </Menu>
                     </IconButton>
