@@ -59,7 +59,7 @@ class Header extends Component {
                     <IconButton id="profile-icon" edge="start" color="inherit" aria-label="menu"  >
                         {this.state.userProfileData ?
                             <Avatar alt={this.state.userProfileData.full_name} id="profile-icon" fontSize="small"
-                                    ariant="circle" src={this.state.userProfileData.profile_picture} onClick={this.menuOpenHandler} /> : null}
+                                    variant="circle" src={this.state.userProfileData.profile_picture} onClick={this.menuOpenHandler} /> : null}
                         <Menu
                             id="simple-menu"
                             anchorEl={this.state.anchorEl}

@@ -49,6 +49,7 @@ class MediaCard extends Component {
             liked: l,
         })   
     }
+    
 
     render() {
     const { classes } = this.props;
@@ -58,7 +59,7 @@ class MediaCard extends Component {
                     (<Grid item xs={6} key={mediaObj.id}>
                         <Card>
                             <CardHeader
-                                avatar={ <Avatar alt={mediaObj.user.username} src={mediaObj.user.profile_picture} /> }
+                                avatar={ <Avatar variant="circle" alt={mediaObj.user.username} src={mediaObj.user.profile_picture} /> }
                                 title={mediaObj.user.username}
                                 subheader={<Moment format="DD/MM/YYYY HH:mm:ss" interval={mediaObj.caption.created_time} />}
                             />
@@ -84,7 +85,7 @@ class MediaCard extends Component {
                                     <Grid item xs={10}>
                                         <TextField className="add-comment-text-field" label="Add a comment" fullWidth={true} />
                                     </Grid>
-                                    <Grid item xs={2} index="add-button-grid">
+                                    <Grid item xs={2} className="add-button-grid">
                                         <Button className="add-button"
                                             variant="contained"
                                             id="add-comments-button"
@@ -92,7 +93,6 @@ class MediaCard extends Component {
                                             onClick={null}>Add</Button>
                                     </Grid>
                                 </Grid>
-                                
                             </CardContent>
                         </Card>
                 </Grid>))}
