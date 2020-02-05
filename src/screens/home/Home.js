@@ -14,7 +14,7 @@ class Home extends Component {
   }
   componentWillMount() {
     if (this.state.loggedIn === false) {
-      this.props.history.push('/');
+      this.props.history.push('/login');
     }
     fetch(
       this.props.baseUrl +

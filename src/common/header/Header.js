@@ -18,7 +18,7 @@ class Header extends Component {
     }
     componentWillMount() {
         if (this.state.loggedIn === false) {
-            this.props.history.push('/');
+            this.props.history.push('/login');
         }
 
         fetch(this.props.baseUrl + '?access_token=' + sessionStorage.getItem('access-token'))
@@ -47,7 +47,7 @@ class Header extends Component {
     logoutHandler = () => {
         sessionStorage.removeItem("access-token");
         this.menuCloseHandler();
-        this.props.history.push('/');
+        this.props.history.push('/login');
     }
     render() {
         return (
