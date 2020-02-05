@@ -52,9 +52,9 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Header {...this.props} showSearchBarAndProfileIcon={true} />
+        <Header {...this.props} showSearchBar={true} showProfileIcon={true} showOnlyLogoutMenu={false} />
         <Container>
-          <MediaCard {...this.props} userMediaData={this.state.userMediaData}/>
+            <MediaCard {...this.props} userMediaData={this.state.userMediaData}/>
         </Container>
       </div>
     )

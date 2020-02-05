@@ -49,18 +49,27 @@ class Header extends Component {
         this.menuCloseHandler();
         this.props.history.push('/login');
     }
+
+    homePageOpenHandler = () => {
+        this.props.history.push('/home');
+    }
+
     render() {
         return (
             <div className="header">
-                <div className="title">Image Viewer</div>
-                { this.props.showSearchBarAndProfileIcon === true ?
+                <div className="title" onClick={this.homePageOpenHandler} >Image Viewer</div>
+                
                 <div className="header-right">
+                    { this.props.showSearchBar === true ?
                     <div id="search-field">
                         <div className="searchIcon" >
                             <SearchIcon />
                         </div>
                         <Input className="searchInput" disableUnderline={true} placeholder="Search..." />
                     </div>
+                        : ""
+                    }
+                    { this.props.showProfileIcon === true ?
                     <IconButton id="profile-icon" edge="start" color="inherit" aria-label="menu"  >
                         {this.state.userProfileData ?
                             <Avatar alt={this.state.userProfileData.full_name} id="profile-icon" fontSize="small"
@@ -72,12 +81,16 @@ class Header extends Component {
                             open={Boolean(this.state.anchorEl)}
                             onClose={this.menuCloseHandler}
                         >
-                            <MenuItem onClick={this.menuMyAccountHandler}>My account</MenuItem>
+                            { this.props.showOnlyLogoutMenu === false ?
+                                <MenuItem onClick={this.menuMyAccountHandler}>My account</MenuItem>
+                                : ""
+                            }
                             <MenuItem onClick={this.logoutHandler}>Logout</MenuItem>
                         </Menu>
                     </IconButton>
-                </div> : ""
-                }
+                        : ""
+                    }
+                </div> 
             </div>
 
         )
