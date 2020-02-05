@@ -9,3 +9,7 @@
 .MuiGrid-spacing-xs-3 > .MuiGrid-item {
     align-self: flex-end;
 }
+
+.MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    align-self: flex-start;
+}

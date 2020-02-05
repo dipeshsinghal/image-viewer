@@ -73,7 +73,7 @@ class MediaCard extends Component {
     return (
             <Grid container spacing={2} direction="row" justify="flex-start" alignItems="center" >
                 { this.props.userMediaData && this.props.userMediaData.map((mediaObj, index) => 
-                    (<Grid item xs={6} key={mediaObj.id}>
+                    (<Grid item xs={6} key={mediaObj.id} alignSelf='top' >
                         <Card>
                             <CardHeader
                                 avatar={ <Avatar variant="circle" alt={mediaObj.user.username} src={mediaObj.user.profile_picture} /> }
@@ -89,6 +89,14 @@ class MediaCard extends Component {
                             <CardContent>
                                 <Typography component="p">
                                     {mediaObj.caption.text.split("#")[0]}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {mediaObj.tags.map(tag => {
+                                    return (
+                                        <span style={{ color: "#1976d2", fontSize: "14px" }} size="small" key={tag}>#{tag}{" "}
+                                        </span>
+                                        );
+                                    })}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="div" >
                                     {   this.state.comments &&
