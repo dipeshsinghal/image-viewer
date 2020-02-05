@@ -9,7 +9,7 @@ class Profile extends Component {
     this.state = {
       loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
       userProfileData: null,
-      userMediaData: null,
+      userRecentMediaData: null,
     }
   }
   componentWillMount() {
@@ -17,8 +17,7 @@ class Profile extends Component {
       this.props.history.push('/login');
     }
     fetch(
-      this.props.baseUrl +
-      "?access_token=" +
+      this.props.baseUrl + "?access_token=" +
       sessionStorage.getItem("access-token")
     )
       .then(res => res.json())
@@ -32,19 +31,18 @@ class Profile extends Component {
       );
 
   fetch(
-      this.props.baseUrl +
-      "media/recent/?access_token=" +
+      this.props.baseUrl + "media/recent/?access_token=" +
       sessionStorage.getItem("access-token")
   )
       .then(res => res.json())
       .then(
           result => {
             this.setState({
-              userMediaData: result.data
+              userRecentMediaData: result.data
             });
           },
           error => {
-            console.log("Error while fetching user media data from Instagram.",error);
+            console.log("Error while fetching user recent media data from Instagram.",error);
           }
       );  
     
