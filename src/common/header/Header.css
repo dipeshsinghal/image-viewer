@@ -15,6 +15,7 @@
     padding: 0;  
     width: max-content;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 #search-field {
