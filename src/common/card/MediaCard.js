@@ -38,8 +38,8 @@ class MediaCard extends Component {
         this.state = {
             anchorEl: null,
             liked: [],
+            comments: [],
         }
-
     }
     onlikeMedia = (index) => {
         console.log(index);
@@ -48,6 +48,23 @@ class MediaCard extends Component {
         this.setState({
             liked: l,
         })   
+    }
+
+    onAddComment = (index) => {
+        var textbox = document.getElementById("textfield-"+index);
+        if( textbox.value == null || textbox.value.trim() === "" ) {
+            return;
+        }
+        let c = this.state.comments;
+        if(c[index] == null) {
+            c[index] = [textbox.value];
+        } else {
+            c[index] = c[index].concat([textbox.value]);
+        }
+        this.setState({
+            comments: c,
+        }) 
+        textbox.value = '';
     }
     
 
@@ -73,6 +90,19 @@ class MediaCard extends Component {
                                 <Typography component="p">
                                     {mediaObj.caption.text.split("#")[0]}
                                 </Typography>
+                                <Typography variant="body2" color="textSecondary" component="div" >
+                                    {   this.state.comments &&
+                                        this.state.comments.length > 0 &&
+                                        this.state.comments[index] && 
+                                        this.state.comments[index].length > 0 &&
+                                        this.state.comments[index].map(comment => {
+                                        return (
+                                            <p style={{ fontSize: "16px" }} key={comment}>
+                                            <b>{mediaObj.user.username}:</b> {comment}
+                                            </p>
+                                        );
+                                    })}
+                                </Typography>
                             </CardContent>
                             <CardActions disableSpacing>
                             <IconButton aria-label="add to favorites" onClick={() => this.onlikeMedia(index)}>
@@ -83,14 +113,14 @@ class MediaCard extends Component {
                             <CardContent>
                                 <Grid container spacing={3}>
                                     <Grid item xs={10}>
-                                        <TextField className="add-comment-text-field" label="Add a comment" fullWidth={true} />
+                                        <TextField id={"textfield-"+index} className="add-comment-text-field" label="Add a comment" fullWidth={true} />
                                     </Grid>
                                     <Grid item xs={2} className="add-button-grid">
                                         <Button className="add-button"
                                             variant="contained"
                                             id="add-comments-button"
                                             color="primary"
-                                            onClick={null}>Add</Button>
+                                            onClick={() => this.onAddComment(index)} >Add</Button>
                                     </Grid>
                                 </Grid>
                             </CardContent>
