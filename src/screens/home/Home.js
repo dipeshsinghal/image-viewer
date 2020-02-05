@@ -9,7 +9,9 @@ class Home extends Component {
     this.state = {
       loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
       userProfileData: null,
-      userMediaData: null,
+      userMediaDataOrig: null,
+      userMediaDataFiltered: null,
+      searchText: null,
     }
   }
   componentWillMount() {
@@ -39,9 +41,7 @@ class Home extends Component {
       .then(res => res.json())
       .then(
           result => {
-            this.setState({
-              userMediaData: result.data
-            });
+            this.setState({userMediaDataOrig: result.data, userMediaDataFiltered: result.data });
           },
           error => {
             console.log("Error while fetching user media data from Instagram.",error);
@@ -49,12 +49,28 @@ class Home extends Component {
       );  
     
   }
+
+  checkIfExist = (element) => {
+    return element.caption.text.toUpperCase().split("#")[0].indexOf(this.state.searchText.toUpperCase()) > -1
+  }
+
+  onSearchHandler = event => {
+    console.log("onSearchHandler");
+    this.setState({ searchText: event.target.value });
+    if ( this.state.searchText == null || this.state.searchText.trim() === "" ) {
+      this.setState({userMediaDataFiltered: this.state.userMediaDataOrig});
+    } else {
+      var userMediaDataFiltered = this.state.userMediaDataOrig.filter( this.checkIfExist );
+      this.setState({userMediaDataFiltered: userMediaDataFiltered});
+    }
+  }
+
   render() {
     return (
       <div>
-        <Header {...this.props} showSearchBar={true} showProfileIcon={true} showOnlyLogoutMenu={false} />
+        <Header {...this.props} showSearchBar={true} showProfileIcon={true} showOnlyLogoutMenu={false} searchHandler={this.onSearchHandler}/>
         <Container>
-            <MediaCard {...this.props} userMediaData={this.state.userMediaData}/>
+            <MediaCard {...this.props} userMediaData={this.state.userMediaDataFiltered}/>
         </Container>
       </div>
     )

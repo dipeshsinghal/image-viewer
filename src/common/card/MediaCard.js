@@ -73,7 +73,7 @@ class MediaCard extends Component {
     return (
             <Grid container spacing={2} direction="row" justify="flex-start" alignItems="center" >
                 { this.props.userMediaData && this.props.userMediaData.map((mediaObj, index) => 
-                    (<Grid item xs={6} key={mediaObj.id} alignSelf='top' >
+                    (<Grid item xs={6} key={mediaObj.id} alignItems='top' >
                         <Card>
                             <CardHeader
                                 avatar={ <Avatar variant="circle" alt={mediaObj.user.username} src={mediaObj.user.profile_picture} /> }

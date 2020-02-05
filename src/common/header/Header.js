@@ -65,7 +65,7 @@ class Header extends Component {
                         <div className="searchIcon" >
                             <SearchIcon />
                         </div>
-                        <Input className="searchInput" disableUnderline={true} placeholder="Search..." />
+                        <Input id="search-text" className="searchInput" disableUnderline={true} placeholder="Search..." onChange={this.props.searchHandler} />
                     </div>
                         : ""
                     }

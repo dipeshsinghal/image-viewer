@@ -52,7 +52,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <Header {...this.props} showSearchBar={false} showProfileIcon={true} />
+        <Header {...this.props} showSearchBar={false} showProfileIcon={true} showOnlyLogoutMenu={true} />
         <Container>
           {/* <MediaCard {...this.props} userMediaData={this.state.userMediaData}/> */}
         </Container>
