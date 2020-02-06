@@ -13,3 +13,8 @@
 .MuiGrid-spacing-xs-2 > .MuiGrid-item {
     align-self: flex-start;
 }
+
+.MuiCardMedia-root {
+    height: 100px;
+    padding-top: 56.25%;
+}

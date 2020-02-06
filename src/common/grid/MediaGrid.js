@@ -3,20 +3,6 @@ import './MediaGrid.css';
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import { withStyles } from '@material-ui/core/styles';
-
-const style = theme => ({
-    root: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 100,
-      paddingTop: '56.25%', // 16:9
-    },
-    avatar: {
-      // backgroundColor: red[500],
-    },
-  });
 
 class MediaGrid extends Component {
     
@@ -24,11 +10,26 @@ class MediaGrid extends Component {
         super();
         this.state = {
             anchorEl: null,
+            modal: false,
+            mediaObj: null,
         }
     }
 
+    openModalHandler = mediaObj => {
+      console.log("openModalHandler")
+      this.setState({
+        modal: true,
+        mediaObj: mediaObj,
+      })
+    }
+    closeModalHandler = () => {
+      this.setState({
+        modal: false,
+        mediaObj: null,
+      })
+    }
+
     render() {
-        const { classes } = this.props;
         return (
             <div>
             <br/>
@@ -40,15 +41,12 @@ class MediaGrid extends Component {
                 item
                 xs={4}
                 key={mediaObj.id}
-                onClick={null}
-                >
-                <Card className={classes.card} variant="outlined">
-                    <CardMedia
-                    className={classes.media}
-                    image={mediaObj.images.standard_resolution.url}
-                    title={mediaObj.images.standard_resolution.url}
-                    />
-                </Card>
+                onClick={() => this.openModalHandler(mediaObj)}>
+                  <Card  variant="outlined">
+                      <CardMedia
+                        image={mediaObj.images.standard_resolution.url}
+                        title={mediaObj.images.standard_resolution.url}/>
+                  </Card>
                 </Grid>
             ))}
             </Grid>
@@ -57,4 +55,4 @@ class MediaGrid extends Component {
     }
 }
 
-export default withStyles(style)(MediaGrid);
+export default MediaGrid;
