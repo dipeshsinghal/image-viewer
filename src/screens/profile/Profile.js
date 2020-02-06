@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Header from '../../common/header/Header';
-import MediaCard from '../../common/card/MediaCard';
+import MediaGrid from '../../common/grid/MediaGrid';
 import { Container } from '@material-ui/core';
+import './Profile.css';
+
 
 class Profile extends Component {
   constructor() {
@@ -12,6 +14,7 @@ class Profile extends Component {
       userRecentMediaData: null,
     }
   }
+
   componentWillMount() {
     if (this.state.loggedIn === false) {
       this.props.history.push('/login');
@@ -52,7 +55,7 @@ class Profile extends Component {
       <div>
         <Header {...this.props} showSearchBar={false} showProfileIcon={true} showOnlyLogoutMenu={true} />
         <Container>
-          {/* <MediaCard {...this.props} userMediaData={this.state.userMediaData}/> */}
+          <MediaGrid {...this.props}  userRecentMediaData={this.state.userRecentMediaData} />
         </Container>
       </div>
     )
