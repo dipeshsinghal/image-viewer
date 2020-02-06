@@ -108,9 +108,10 @@ class Profile extends Component {
                   color="secondary"
                   id="edit-profile"
                   aria-label="edit"
+                  fontSize="small"
                   onClick={this.handleOpen}
                 >
-                <EditIcon fontSize="large" />
+                <EditIcon fontSize="small" />
                 </Fab>
               </Typography>
             </Grid>
