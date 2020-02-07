@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
+import EditUserNameModal from "../../common/modal/EditUserNameModal";
 
 class Profile extends Component {
   constructor() {
@@ -16,6 +17,8 @@ class Profile extends Component {
       loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
       userProfileData: null,
       userRecentMediaData: null,
+      openEditUserModal: false,
+      updateUserFullName: null,
     }
   }
 
@@ -54,6 +57,19 @@ class Profile extends Component {
       );  
     
   }
+  onOpenEditUserModal = () => {
+    this.setState({openEditUserModal: true})
+  }
+
+  onCloseEditUserModal = () => {
+    this.setState({openEditUserModal: false})
+  }
+  onSubmitEditUserModal  = (name) => {
+    this.setState({updateUserFullName: name})
+    this.onCloseEditUserModal();
+  }
+
+
   render() {
     return (
       <div>
@@ -100,8 +116,8 @@ class Profile extends Component {
                 </Grid>
               </Grid>
               <Typography variant="h5" component="h2">
-                {this.state.fullname ? this.state.fullname : null}
-                {this.state.userProfileData && !this.state.fullname
+                {this.state.updateUserFullName ? this.state.updateUserFullName : null}
+                {this.state.userProfileData && !this.state.updateUserFullName
                   ? this.state.userProfileData.full_name
                   : null}
                 <Fab
@@ -109,7 +125,7 @@ class Profile extends Component {
                   id="edit-profile"
                   aria-label="edit"
                   fontSize="small"
-                  onClick={this.handleOpen}
+                  onClick={this.onOpenEditUserModal}
                 >
                 <EditIcon fontSize="small" />
                 </Fab>
@@ -118,6 +134,11 @@ class Profile extends Component {
             <Grid item xs={4}/>
           </Grid>
           <MediaGrid {...this.props}  userRecentMediaData={this.state.userRecentMediaData} />
+          <EditUserNameModal {...this.props} 
+            openEditUserModal={this.state.openEditUserModal}
+            onCloseEditUserModal={this.onCloseEditUserModal}
+            onSubmitEditUserModal={this.onSubmitEditUserModal}
+          />
         </Container>
       </div>
     )
