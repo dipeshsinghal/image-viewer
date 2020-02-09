@@ -14,7 +14,7 @@ class EditUserNameModal  extends Component {
             anchorEl: null,
             fullName: null,
             typedFullname: null,
-            errorFullNameRequired: false,
+            errorFullNameRequired: false
         }
 
     }

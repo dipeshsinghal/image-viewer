@@ -12,7 +12,7 @@ class Header extends Component {
         super();
         this.state = {
             anchorEl: null,
-            userProfileData: null,
+            userProfileData: null
         }
 
     }

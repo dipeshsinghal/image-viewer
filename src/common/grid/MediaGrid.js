@@ -7,28 +7,29 @@ import ViewImageModal from "../../common/modal/viewImageModal/ViewImageModal";
 import { Container } from '@material-ui/core';
 
 class MediaGrid extends Component {
-    
     constructor() {
         super();
         this.state = {
-            anchorEl: null,
-            // modal: false,
-            openImageViewMediaObj: null,
-            openImageViewModal: false,
+            imageViewMediaObject: null,
+            openImageViewModal: false
         }
     }
 
-    openModalHandler = mediaObj => {
-      console.log(mediaObj);
-      this.setState({
-        openImageViewModal: true,
-        openImageViewMediaObj: mediaObj,
-      })
+    openModalHandler = (index) => {
+      console.log("openModalHandler1");
+      console.log(index);
+      console.log(this.props.userRecentMediaData[index]);
+      this.setState({imageViewMediaObject: index})
+      console.log("openModalHandler2");
+      console.log(this.state.imageViewMediaObject);
+      console.log("openModalHandler2");
+      this.setState({openImageViewModal: true})
+      console.log(this.state);
     }
-    closeModalHandler = () => {
+    onCloseImageViewModal = () => {
       this.setState({
         openImageViewModal: false,
-        mediaObj: null,
+        imageViewMediaObject: ""
       })
     }
 
@@ -39,14 +40,14 @@ class MediaGrid extends Component {
             <Container>
               <Grid container spacing={1} direction="row" alignItems="center">
               {this.props.userRecentMediaData &&
-              this.props.userRecentMediaData.map(mediaObj => (
+              this.props.userRecentMediaData.map((mediaObj, index) => (
                   <Grid
-                  id="media-grids"
+                  // id="media-grids"
                   item
                   xs={4}
                   key={mediaObj.id}
-                  onClick={() => this.openModalHandler(mediaObj)}>
-                    <Card  variant="outlined">
+                  onClick={() => this.openModalHandler(index)}>
+                    <Card variant="outlined">
                         <CardMedia
                           image={mediaObj.images.standard_resolution.url}
                           title={mediaObj.images.standard_resolution.url}/>
@@ -54,12 +55,11 @@ class MediaGrid extends Component {
                   </Grid>
               ))}
               </Grid>
-              <ViewImageModal {...this.props} 
+            </Container>
+            <ViewImageModal {...this.props}
                   openImageViewModal={this.state.openImageViewModal}
                   onCloseImageViewModal={this.onCloseImageViewModal}
-                  openImageViewMediaObj={this.state.openImageViewMediaObj}
-              />
-            </Container>
+                  imageViewMediaObject={this.state.imageViewMediaObject}/>
             </div>
         )
     }

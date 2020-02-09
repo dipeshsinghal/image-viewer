@@ -11,7 +11,7 @@ class Home extends Component {
       userProfileData: null,
       userMediaDataOrig: null,
       userMediaDataFiltered: null,
-      searchText: null,
+      searchText: null
     }
   }
   componentWillMount() {

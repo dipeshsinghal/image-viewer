@@ -19,7 +19,7 @@ class Profile extends Component {
       userRecentMediaData: null,
       openEditUserModal: false,
       updateUserFullName: null,
-      openImageViewModal: false,
+      openImageViewModal: false
     }
   }
 

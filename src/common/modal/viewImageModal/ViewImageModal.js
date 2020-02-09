@@ -8,11 +8,9 @@ class ViewImageModal  extends Component {
     constructor() {
         super();
         this.state = {
-            anchorEl: null,
+            anchorEl: null
         }
-
     }
-
     render() {
         return (
                 <Modal
@@ -24,10 +22,11 @@ class ViewImageModal  extends Component {
                 >
                     <div className="modal-div">
                         <Card>
-                            {/* <CardMedia
-                                image={this.props.openImageViewMediaObj.images.standard_resolution.url}
-                                title={this.props.openImageViewMediaObj.images.standard_resolution.url}
-                            /> */}
+                            {/* {this.props.imageViewMediaObject ? 
+                            <CardMedia
+                                image={this.props.imageViewMediaObject.images.standard_resolution.url}
+                                title={this.props.imageViewMediaObject.images.standard_resolution.url}
+                            /> : null} */}
                         </Card>
                     </div>
                 </Modal>

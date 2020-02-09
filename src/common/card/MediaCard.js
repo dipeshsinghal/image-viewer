@@ -24,7 +24,7 @@ class MediaCard extends Component {
         this.state = {
             anchorEl: null,
             liked: [],
-            comments: [],
+            comments: []
         }
     }
     onlikeMedia = (index) => {

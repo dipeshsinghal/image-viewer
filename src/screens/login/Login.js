@@ -19,17 +19,17 @@ class Login extends Component {
             passwordRequired: "dispNone",
             password: "",
             loginError: "dispNone",
-            loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
+            loggedIn: sessionStorage.getItem("access-token") == null ? false : true
         }
     }
     inputUsernameChangeHandler = (e) => {
         this.setState({
-            username: e.target.value,
+            username: e.target.value
         })
     }
     inputPasswordChangeHandler = (e) => {
         this.setState({
-            password: e.target.value,
+            password: e.target.value
         })
     }
     loginClickHandler = () => {
