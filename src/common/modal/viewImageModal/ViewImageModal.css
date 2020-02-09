@@ -8,15 +8,42 @@
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3rem;
     box-shadow: black;
+    inline-size: fit-content;
 }
 
-/* .paper: {
-    position: absolute;
-    width: "33%",
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  },
-  avatar: {
-    backgroundColor: red[500]
-  } */
+.add-button-grid {
+    vertical-align: bottom;
+    inline-size: fit-content;
+}
+
+.add-button {
+    vertical-align: bottom;
+    inline-size: fit-content;
+}
+
+.MuiGrid-spacing-xs-3 > .MuiGrid-item {
+    align-self: flex-end;
+    inline-size: fit-content;
+}
+
+.MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    align-self: flex-start;
+    inline-size: fit-content;
+}
+
+.MuiGrid-grid-xs-6 {
+    height: 70%;
+    width: 70%;
+}
+
+.comment-section {
+    min-height: 150px;
+}
+
+.comment-add-section {
+    vertical-align: bottom;
+}
+
+.user-detail-section {
+    vertical-align: top;
+}

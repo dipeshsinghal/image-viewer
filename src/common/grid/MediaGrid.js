@@ -17,6 +17,7 @@ class MediaGrid extends Component {
     }
 
     openModalHandler = (mediaObj, index) => {
+      console.log(mediaObj);
       this.setState({imageViewMediaObject: mediaObj});
       this.setState({openImageViewModal: true});
       this.setState({index: index});

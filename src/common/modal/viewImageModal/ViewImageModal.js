@@ -53,6 +53,8 @@ class ViewImageModal extends Component {
     render() {
         let mediaObj = this.props.imageViewMediaObject;
         let index = this.props.imageIndex;
+        let height = 0;
+        height = ( mediaObj ? parseInt(mediaObj.images.standard_resolution.height)* 0.4 : 0);
         return (
             <Modal
                 aria-labelledby="simple-modal-title"
@@ -81,15 +83,13 @@ class ViewImageModal extends Component {
                                 ></img>
                             ) : null}
                         </Grid>
-                        <Grid item xs={6}>
+                    <Grid item xs={6} style={{minHeight: 'auto'}}>
                             {mediaObj ? (
                                 <div>
-                                    <Grid
+                                    <Grid className="user-detail-section"
                                         container
                                         spacing={1}
                                         direction="row"
-                                        justify="center"
-                                        alignItems="center"
                                     >
                                         <Grid item xs={4}>
                                             <Avatar
@@ -137,6 +137,8 @@ class ViewImageModal extends Component {
                                         variant="body2"
                                         color="textSecondary"
                                         component="div"
+                                        class="comment-section"
+                                        style={{minHeight: height}}
                                     >
                                         {this.state.comments &&
                                             this.state.comments[index] &&
@@ -158,24 +160,18 @@ class ViewImageModal extends Component {
                                         </IconButton>
                                         <span>{this.state.liked[index] ? mediaObj.likes.count + 1 : mediaObj.likes.count} likes</span>
                                     </CardActions>
-                                    <div style={{ margin: "1rem" }}>
-                                        <form
-                                            noValidate
-                                            autoComplete="off"
-                                        >
-                                            <TextField
-                                                id="add-user-comment-image"
-                                                label="Add a comment"
-                                            />
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={this.onAddComment}
-                                            >
-                                                Add
-                                            </Button>
-                                        </form>
-                                    </div>
+                                    <Grid className="comment-add-section" container spacing={3}>
+                                        <Grid item xs={10}>
+                                            <TextField id="add-user-comment-image" className="add-comment-text-field" label="Add a comment" fullWidth={true} />
+                                        </Grid>
+                                        <Grid item xs={2} className="add-button-grid">
+                                        <Button className="add-button"
+                                            variant="contained"
+                                            id="add-comments-button"
+                                            color="primary"
+                                            onClick={this.onAddComment} >Add</Button>
+                                        </Grid>
+                                    </Grid>
                                 </div>
                             ) : null}
                         </Grid>
