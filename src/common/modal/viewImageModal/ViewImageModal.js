@@ -13,15 +13,32 @@ import CardActions from "@material-ui/core/CardActions";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
+
 class ViewImageModal extends Component {
     constructor() {
         super();
         this.state = {
-            anchorEl: null
+            anchorEl: null,
+            like: [],
+            comment: []
         }
     }
+    onLikeImage = () => {
+
+    }
+
+    commentChangeHandler = () => {
+
+    }
+
+    updateComments = () => {
+
+    }
+
     render() {
-        let imageObj = this.props.imageViewMediaObject
+        let mediaObj = this.props.imageViewMediaObject;
+        let comment = this.state.comment;
+        let like = this.state.like;
         return (
             <Modal
                 aria-labelledby="simple-modal-title"
@@ -30,7 +47,7 @@ class ViewImageModal extends Component {
                 onClose={this.props.onCloseImageViewModal}
                 onBackdropClick={this.props.onCloseImageViewModal}
             >
-                <div class="modal-div" >
+                <div class="modal-div">
                     <Grid
                         container
                         spacing={1}
@@ -39,21 +56,19 @@ class ViewImageModal extends Component {
                         alignItems="center"
                     >
                         <Grid item xs={6}>
-                            {imageObj ? (
+                            {mediaObj ? (
                                 <img
-                                    src={imageObj.images.standard_resolution.url}
-                                    alt={imageObj.images.standard_resolution.url}
+                                    src={mediaObj.images.standard_resolution.url}
+                                    alt={mediaObj.images.standard_resolution.url}
                                     style={{
                                         height: "100%",
-                                        width: "100%",
-                                        maxWidth: "100%"
-                                        // width: imageObj.images.standard_resolution.width,
+                                        width: "100%"
                                     }}
                                 ></img>
                             ) : null}
                         </Grid>
                         <Grid item xs={6}>
-                            {imageObj ? (
+                            {mediaObj ? (
                                 <div>
                                     <Grid
                                         container
@@ -64,8 +79,8 @@ class ViewImageModal extends Component {
                                     >
                                         <Grid item xs={4}>
                                             <Avatar
-                                                alt={imageObj.user.full_name}
-                                                src={imageObj.user.profile_picture}
+                                                alt={mediaObj.user.full_name}
+                                                src={mediaObj.user.profile_picture}
                                             />
                                         </Grid>{" "}
                                         <Grid item xs={8}>
@@ -74,7 +89,7 @@ class ViewImageModal extends Component {
                                                 color="textSecondary"
                                                 component="p"
                                             >
-                                                {imageObj.user.username}
+                                                {mediaObj.user.username}
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -84,14 +99,14 @@ class ViewImageModal extends Component {
                                         color="textSecondary"
                                         component="p"
                                     >
-                                        {imageObj.caption.text.split("#")[0]}
+                                        {mediaObj.caption.text.split("#")[0]}
                                     </Typography>
                                     <Typography
                                         variant="body2"
                                         color="textSecondary"
                                         component="p"
                                     >
-                                        {imageObj.tags.map(tag => {
+                                        {mediaObj.tags.map(tag => {
                                             return (
                                                 <span
                                                     style={{ color: "#1976d2", fontSize: "14px" }}
@@ -104,13 +119,69 @@ class ViewImageModal extends Component {
                                             );
                                         })}
                                     </Typography>
-
+                                    <Typography
+                                        variant="body2"
+                                        color="textSecondary"
+                                        component="div"
+                                    >
+                                        {comment.length > 0 &&
+                                            comment.map(cmt => {
+                                                return (
+                                                    <p
+                                                        style={{ fontSize: "16px", fontWeight: "bold" }}
+                                                        key={cmt}
+                                                    >
+                                                        <b>{mediaObj.user.username}:</b> {cmt}
+                                                    </p>
+                                                );
+                                            })}
+                                    </Typography>
+                                    <CardActions disableSpacing>
+                                        <IconButton
+                                            aria-label="add to favorites"
+                                            onClick={() => this.onLikeImage()}
+                                        >
+                                            {like ? (
+                                                <FavoriteIcon style={{ color: red[500] }} />
+                                            ) : (
+                                                    <FavoriteBorderIcon />
+                                                )}
+                                        </IconButton>
+                                        <span>
+                                            {like
+                                                ? mediaObj.likes.count + 1
+                                                : mediaObj.likes.count}{" "}
+                                            likes
+                                        </span>
+                                    </CardActions>
+                                    <div style={{ margin: "1rem" }}>
+                                        <form
+                                            // className={classes.root}
+                                            noValidate
+                                            autoComplete="off"
+                                        >
+                                            <TextField
+                                                id="add-user-comment"
+                                                value={comment}
+                                                onChange={this.commentChangeHandler}
+                                                label="Add a comment"
+                                            />
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                disabled={!comment}
+                                                onClick={this.updateComments}
+                                            >
+                                                Add
+                                            </Button>
+                                        </form>
+                                    </div>
                                 </div>
                             ) : null}
                         </Grid>
                     </Grid>
                 </div>
-            </Modal>
+            </Modal >
         );
     }
 }

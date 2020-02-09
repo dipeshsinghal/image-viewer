@@ -11,28 +11,18 @@ class MediaGrid extends Component {
         super();
         this.state = {
             imageViewMediaObject: null,
-            openImageViewModal: false
+            openImageViewModal: false,
+            index: null
         }
     }
 
-    openModalHandler = (mediaObj) => {
-      console.log("openModalHandler1");
-      console.log(mediaObj);
-      this.setState({imageViewMediaObject: mediaObj})
-      console.log("openModalHandler2");
-      console.log(this.state.imageViewMediaObject);
-      console.log("openModalHandler2");
-      this.setState({openImageViewModal: true})
-      console.log(this.state.openImageViewModal);
+    openModalHandler = (mediaObj, index) => {
+      this.setState({imageViewMediaObject: mediaObj});
+      this.setState({openImageViewModal: true});
     }
     onCloseImageViewModal = () => {
-      console.log("onCloseImageViewModal");
-      console.log(this.state.openImageViewModal);
-      console.log(this.state.imageViewMediaObject);
-      this.setState({
-        openImageViewModal: false
-        // imageViewMediaObject: null
-      })
+      this.setState({openImageViewModal: false});
+      this.setState({imageViewMediaObject: null});
     }
 
     render() {
@@ -42,7 +32,7 @@ class MediaGrid extends Component {
             <Container>
               <Grid container spacing={1} direction="row" alignItems="center">
               {this.props.userRecentMediaData &&
-              this.props.userRecentMediaData.map((mediaObj, index) => (
+              this.props.userRecentMediaData.map((mediaObj) => (
                   <Grid
                   // id="media-grids"
                   item
