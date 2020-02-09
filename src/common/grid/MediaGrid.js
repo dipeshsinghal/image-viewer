@@ -19,10 +19,12 @@ class MediaGrid extends Component {
     openModalHandler = (mediaObj, index) => {
       this.setState({imageViewMediaObject: mediaObj});
       this.setState({openImageViewModal: true});
+      this.setState({index: index});
     }
     onCloseImageViewModal = () => {
       this.setState({openImageViewModal: false});
       this.setState({imageViewMediaObject: null});
+      this.setState({index: -1});
     }
 
     render() {
@@ -32,13 +34,13 @@ class MediaGrid extends Component {
             <Container>
               <Grid container spacing={1} direction="row" alignItems="center">
               {this.props.userRecentMediaData &&
-              this.props.userRecentMediaData.map((mediaObj) => (
+              this.props.userRecentMediaData.map((mediaObj, index) => (
                   <Grid
                   // id="media-grids"
                   item
                   xs={4}
                   key={mediaObj.id}
-                  onClick={() => this.openModalHandler(mediaObj)}>
+                  onClick={() => this.openModalHandler(mediaObj, index)}>
                     <Card variant="outlined">
                         <CardMedia
                           image={mediaObj.images.standard_resolution.url}
@@ -51,7 +53,8 @@ class MediaGrid extends Component {
             <ViewImageModal {...this.props}
                   imageViewMediaObject={this.state.imageViewMediaObject}
                   openImageViewModal={this.state.openImageViewModal}
-                  onCloseImageViewModal={this.onCloseImageViewModal}/>
+                  onCloseImageViewModal={this.onCloseImageViewModal}
+                  imageIndex={this.state.index}/>
             </div>
         )
     }

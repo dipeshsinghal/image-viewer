@@ -19,35 +19,40 @@ class ViewImageModal extends Component {
         super();
         this.state = {
             anchorEl: null,
-            liked: false,
-            comment: []
+            liked: [],
+            comments: []
         }
     }
     onlikeMedia = () => {
-        this.setState({liked: !this.state.liked})   
+        let index = this.props.imageIndex;
+        let l = this.state.liked;
+        l[index] = !l[index];
+        this.setState({
+            liked: l,
+        })
     }
 
     onAddComment = () => {
+        let index = this.props.imageIndex;
         var textbox = document.getElementById("add-user-comment-image");
-        if( textbox.value == null || textbox.value.trim() === "" ) {
+        if (textbox.value == null || textbox.value.trim() === "") {
             return;
         }
-        let c = this.state.comment;
-        if( c == null) {
-            c = [textbox.value];
+        let c = this.state.comments;
+        if (c[index] == null) {
+            c[index] = [textbox.value];
         } else {
-            c = c.concat([textbox.value]);
+            c[index] = c[index].concat([textbox.value]);
         }
         this.setState({
-            comment: c,
-        }) 
+            comments: c,
+        })
         textbox.value = '';
     }
 
     render() {
         let mediaObj = this.props.imageViewMediaObject;
-        let comment = this.state.comment;
-        let liked = this.state.liked;
+        let index = this.props.imageIndex;
         return (
             <Modal
                 aria-labelledby="simple-modal-title"
@@ -133,35 +138,25 @@ class ViewImageModal extends Component {
                                         color="textSecondary"
                                         component="div"
                                     >
-                                        {comment.length > 0 &&
-                                            comment.map(cmt => {
+                                        {this.state.comments &&
+                                            this.state.comments[index] &&
+                                            this.state.comments[index].length > 0 &&
+                                            this.state.comments[index].map(comment => {
                                                 return (
                                                     <p
                                                         style={{ fontSize: "16px", fontWeight: "bold" }}
-                                                        key={cmt}
+                                                        key={comment}
                                                     >
-                                                        <b>{mediaObj.user.username}:</b> {cmt}
+                                                        <b>{mediaObj.user.username}:</b> {comment}
                                                     </p>
                                                 );
                                             })}
                                     </Typography>
                                     <CardActions disableSpacing>
-                                        <IconButton
-                                            aria-label="add to favorites"
-                                            onClick={() => this.onlikeMedia()}
-                                        >
-                                            {liked ? (
-                                                <FavoriteIcon style={{ color: red[500] }} />
-                                            ) : (
-                                                    <FavoriteBorderIcon />
-                                                )}
+                                        <IconButton aria-label="add to favorites" onClick={() => this.onlikeMedia()}>
+                                            {this.state.liked[index] ? <FavoriteIcon style={{ color: red[500] }} /> : <FavoriteBorderIcon />}
                                         </IconButton>
-                                        <span>
-                                            {liked
-                                                ? mediaObj.likes.count + 1
-                                                : mediaObj.likes.count}{" "}
-                                            likes
-                                        </span>
+                                        <span>{this.state.liked[index] ? mediaObj.likes.count + 1 : mediaObj.likes.count} likes</span>
                                     </CardActions>
                                     <div style={{ margin: "1rem" }}>
                                         <form
@@ -175,7 +170,6 @@ class ViewImageModal extends Component {
                                             <Button
                                                 variant="contained"
                                                 color="primary"
-                                                disabled={!comment}
                                                 onClick={this.onAddComment}
                                             >
                                                 Add
