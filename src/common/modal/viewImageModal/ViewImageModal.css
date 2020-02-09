@@ -7,5 +7,15 @@
     background-color: white;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3rem;
-
 }
+
+/* .paper: {
+    position: absolute;
+    width: "33%",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3)
+  },
+  avatar: {
+    backgroundColor: red[500]
+  } */

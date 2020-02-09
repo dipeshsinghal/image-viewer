@@ -15,21 +15,23 @@ class MediaGrid extends Component {
         }
     }
 
-    openModalHandler = (index) => {
+    openModalHandler = (mediaObj) => {
       console.log("openModalHandler1");
-      console.log(index);
-      console.log(this.props.userRecentMediaData[index]);
-      this.setState({imageViewMediaObject: index})
+      console.log(mediaObj);
+      this.setState({imageViewMediaObject: mediaObj})
       console.log("openModalHandler2");
       console.log(this.state.imageViewMediaObject);
       console.log("openModalHandler2");
       this.setState({openImageViewModal: true})
-      console.log(this.state);
+      console.log(this.state.openImageViewModal);
     }
     onCloseImageViewModal = () => {
+      console.log("onCloseImageViewModal");
+      console.log(this.state.openImageViewModal);
+      console.log(this.state.imageViewMediaObject);
       this.setState({
-        openImageViewModal: false,
-        imageViewMediaObject: ""
+        openImageViewModal: false
+        // imageViewMediaObject: null
       })
     }
 
@@ -46,7 +48,7 @@ class MediaGrid extends Component {
                   item
                   xs={4}
                   key={mediaObj.id}
-                  onClick={() => this.openModalHandler(index)}>
+                  onClick={() => this.openModalHandler(mediaObj)}>
                     <Card variant="outlined">
                         <CardMedia
                           image={mediaObj.images.standard_resolution.url}
@@ -57,9 +59,9 @@ class MediaGrid extends Component {
               </Grid>
             </Container>
             <ViewImageModal {...this.props}
+                  imageViewMediaObject={this.state.imageViewMediaObject}
                   openImageViewModal={this.state.openImageViewModal}
-                  onCloseImageViewModal={this.onCloseImageViewModal}
-                  imageViewMediaObject={this.state.imageViewMediaObject}/>
+                  onCloseImageViewModal={this.onCloseImageViewModal}/>
             </div>
         )
     }
