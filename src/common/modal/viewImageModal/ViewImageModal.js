@@ -19,26 +19,35 @@ class ViewImageModal extends Component {
         super();
         this.state = {
             anchorEl: null,
-            like: [],
+            liked: false,
             comment: []
         }
     }
-    onLikeImage = () => {
-
+    onlikeMedia = () => {
+        this.setState({liked: !this.state.liked})   
     }
 
-    commentChangeHandler = () => {
-
-    }
-
-    updateComments = () => {
-
+    onAddComment = () => {
+        var textbox = document.getElementById("add-user-comment-image");
+        if( textbox.value == null || textbox.value.trim() === "" ) {
+            return;
+        }
+        let c = this.state.comment;
+        if( c == null) {
+            c = [textbox.value];
+        } else {
+            c = c.concat([textbox.value]);
+        }
+        this.setState({
+            comment: c,
+        }) 
+        textbox.value = '';
     }
 
     render() {
         let mediaObj = this.props.imageViewMediaObject;
         let comment = this.state.comment;
-        let like = this.state.like;
+        let liked = this.state.liked;
         return (
             <Modal
                 aria-labelledby="simple-modal-title"
@@ -139,16 +148,16 @@ class ViewImageModal extends Component {
                                     <CardActions disableSpacing>
                                         <IconButton
                                             aria-label="add to favorites"
-                                            onClick={() => this.onLikeImage()}
+                                            onClick={() => this.onlikeMedia()}
                                         >
-                                            {like ? (
+                                            {liked ? (
                                                 <FavoriteIcon style={{ color: red[500] }} />
                                             ) : (
                                                     <FavoriteBorderIcon />
                                                 )}
                                         </IconButton>
                                         <span>
-                                            {like
+                                            {liked
                                                 ? mediaObj.likes.count + 1
                                                 : mediaObj.likes.count}{" "}
                                             likes
@@ -156,21 +165,18 @@ class ViewImageModal extends Component {
                                     </CardActions>
                                     <div style={{ margin: "1rem" }}>
                                         <form
-                                            // className={classes.root}
                                             noValidate
                                             autoComplete="off"
                                         >
                                             <TextField
-                                                id="add-user-comment"
-                                                value={comment}
-                                                onChange={this.commentChangeHandler}
+                                                id="add-user-comment-image"
                                                 label="Add a comment"
                                             />
                                             <Button
                                                 variant="contained"
                                                 color="primary"
                                                 disabled={!comment}
-                                                onClick={this.updateComments}
+                                                onClick={this.onAddComment}
                                             >
                                                 Add
                                             </Button>
