@@ -3,6 +3,8 @@ import './MediaGrid.css';
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
+import ViewImageModal from "../../common/modal/viewImageModal/ViewImageModal";
+import { Container } from '@material-ui/core';
 
 class MediaGrid extends Component {
     
@@ -10,21 +12,22 @@ class MediaGrid extends Component {
         super();
         this.state = {
             anchorEl: null,
-            modal: false,
-            mediaObj: null,
+            // modal: false,
+            openImageViewMediaObj: null,
+            openImageViewModal: false,
         }
     }
 
     openModalHandler = mediaObj => {
-      console.log("openModalHandler")
+      console.log(mediaObj);
       this.setState({
-        modal: true,
-        mediaObj: mediaObj,
+        openImageViewModal: true,
+        openImageViewMediaObj: mediaObj,
       })
     }
     closeModalHandler = () => {
       this.setState({
-        modal: false,
+        openImageViewModal: false,
         mediaObj: null,
       })
     }
@@ -33,23 +36,30 @@ class MediaGrid extends Component {
         return (
             <div>
             <br/>
-            <Grid container spacing={1} direction="row" alignItems="center">
-            {this.props.userRecentMediaData &&
-            this.props.userRecentMediaData.map(mediaObj => (
-                <Grid
-                id="media-grids"
-                item
-                xs={4}
-                key={mediaObj.id}
-                onClick={() => this.openModalHandler(mediaObj)}>
-                  <Card  variant="outlined">
-                      <CardMedia
-                        image={mediaObj.images.standard_resolution.url}
-                        title={mediaObj.images.standard_resolution.url}/>
-                  </Card>
-                </Grid>
-            ))}
-            </Grid>
+            <Container>
+              <Grid container spacing={1} direction="row" alignItems="center">
+              {this.props.userRecentMediaData &&
+              this.props.userRecentMediaData.map(mediaObj => (
+                  <Grid
+                  id="media-grids"
+                  item
+                  xs={4}
+                  key={mediaObj.id}
+                  onClick={() => this.openModalHandler(mediaObj)}>
+                    <Card  variant="outlined">
+                        <CardMedia
+                          image={mediaObj.images.standard_resolution.url}
+                          title={mediaObj.images.standard_resolution.url}/>
+                    </Card>
+                  </Grid>
+              ))}
+              </Grid>
+              <ViewImageModal {...this.props} 
+                  openImageViewModal={this.state.openImageViewModal}
+                  onCloseImageViewModal={this.onCloseImageViewModal}
+                  openImageViewMediaObj={this.state.openImageViewMediaObj}
+              />
+            </Container>
             </div>
         )
     }

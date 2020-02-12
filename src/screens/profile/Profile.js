@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
-import EditUserNameModal from "../../common/modal/EditUserNameModal";
+import EditUserNameModal from "../../common/modal/editUserNameModal/EditUserNameModal";
 
 class Profile extends Component {
   constructor() {
@@ -19,6 +19,7 @@ class Profile extends Component {
       userRecentMediaData: null,
       openEditUserModal: false,
       updateUserFullName: null,
+      openImageViewModal: false,
     }
   }
 
@@ -67,6 +68,14 @@ class Profile extends Component {
   onSubmitEditUserModal  = (name) => {
     this.setState({updateUserFullName: name})
     this.onCloseEditUserModal();
+  }
+
+  onOpenImageViewModal = () => {
+    this.setState({openImageViewModal: true})
+  }
+
+  onCloseImageViewModal = () => {
+    this.setState({openImageViewModal: false})
   }
 
 
@@ -133,7 +142,7 @@ class Profile extends Component {
             </Grid>
             <Grid item xs={4}/>
           </Grid>
-          <MediaGrid {...this.props}  userRecentMediaData={this.state.userRecentMediaData} />
+          <MediaGrid {...this.props}  userRecentMediaData={this.state.userRecentMediaData} openImageViewModal={this.state.openImageViewModal} />
           <EditUserNameModal {...this.props} 
             openEditUserModal={this.state.openEditUserModal}
             onCloseEditUserModal={this.onCloseEditUserModal}
